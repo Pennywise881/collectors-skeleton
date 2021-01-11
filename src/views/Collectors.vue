@@ -1014,7 +1014,7 @@ export default {
   },
   data: function () {
     return {
-      publicPath: "localhost:8080/#", //"collectors-groupxx.herokuapp.com/#",
+      publicPath: "https://pure-cliffs-77888.herokuapp.com/#", //"collectors-groupxx.herokuapp.com/#",
       touchScreen: false,
       maxSizes: { x: 0, y: 0 },
       labels: {},
