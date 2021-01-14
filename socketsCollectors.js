@@ -25,6 +25,7 @@ function sockets(io, socket, data)
         currentPlayerId: data.getCurrentPlayerId(d.roomId),
         startNextRound: data.getStartNextRound(d.roomId),
         zoomLink: data.getZoomLink(d.roomId),
+        playersId:data.getPlayersId(d.roomId)
       });
     }
   });

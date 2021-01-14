@@ -66,6 +66,7 @@ Data.prototype.createRoom = function (roomId, playerCount, lang = "en")
 {
   let room = {};
   room.players = {};
+  room.playersId=[];
   room.winnerId = null,
     room.highestPoints = 0;
   room.calcPlayersTurnsPerformed = 0;
@@ -345,6 +346,7 @@ Data.prototype.joinGame = function (roomId, playerId)
     room.turnToPlay = true;
     room.firstTojoin = false;
     room.currentPlayerId = playerId;
+    
 
   }
   else
@@ -358,6 +360,7 @@ Data.prototype.joinGame = function (roomId, playerId)
   {
     if (typeof room.players[playerId] !== "undefined")
     {
+      room.playersId.push(playerId);
       console.log(
         "Player",
         playerId,
@@ -785,7 +788,7 @@ Data.prototype.buyCard = function (
           room.players[playerId].hand[i].y === card.y
         )
         {
-          c = room.players[playerId].hand.splice(i, 1);
+          c = room.players[playerId].hand.splice(i, 1,{});
           break;
         }
       }
@@ -1114,15 +1117,9 @@ Data.prototype.placeBottle = function (roomId, playerId, action, p)
     }
     for (let i = 0; i < activePlacement.length; i += 1)
     {
-      if (p.buttonId === 12)
-      {
-        break;
-      }
+     
 
-      if (p.buttonId === 11 && room.round === 4)
-      {
-        break;
-      }
+      
 
       if (
         activePlacement[i].buttonId === buttonId &&
@@ -1135,7 +1132,7 @@ Data.prototype.placeBottle = function (roomId, playerId, action, p)
         break;
       }
     }
-    console.log("datataaaaaaaa")
+    
     console.log(room.players[playerId].money);
   }
 };
@@ -1440,6 +1437,10 @@ Data.prototype.getWinner = function (roomId)
 {
   let room = this.rooms[roomId];
   return room.winnerId;
+}
+Data.prototype.getPlayersId=function(roomId){
+  let room=this.rooms[roomId];
+  return room.playersId;
 }
 
 

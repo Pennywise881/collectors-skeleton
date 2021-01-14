@@ -940,11 +940,22 @@
       <!-- {{ players }} -->
       <!-- {{ marketValues }} -->
       <br /><br />
+      <transition name="winner_style">
+        <div v-if="this.showFinalScore" class="final_score">
+          <br />
+          <div class="winner_staffs">
+            <h1 class="flicker">
+              {{ players[this.winnerId].playerName }}
+            </h1>
 
-      <div v-if="this.showFinalScore" class="final_score">
-        <h2>The winner is {{ players[this.winnerId].playerName }}</h2>
-        <img src="/images/gold-medal-with-ribbon-psd-53059.jpg" WIDTH="349vh" />
-      </div>
+            <img
+              src="/images/winner_tro.png"
+              class="winner_img"
+              WIDTH="349vh"
+            />
+          </div>
+        </div>
+      </transition>
 
       <div class="linkBox" v-if="this.showInviteBox">
         {{ labels.invite }} <br />
@@ -1033,6 +1044,7 @@ export default {
       winnerId: null,
       showSendLinkPopUp: false,
       startNextRound: null,
+      playersId: [],
       buyPlacement: [],
       skillPlacement: [],
       auctionPlacement: [],
@@ -1133,9 +1145,7 @@ export default {
         "/sounds/PM_FN_Events_LvlUps_PowerUps_26.mp3"
       ),
 
-      winnerSound: new Audio(
-        "/sounds/zapsplat_human_children_x5_under_10_english_cheer_44945.mp3"
-      ),
+      winnerSound: new Audio("/sounds/drum_roll.mp3"),
     };
   },
   computed: {
@@ -1188,6 +1198,7 @@ export default {
         this.playerState = d.playerState;
         this.startNextRound = d.startNextRound;
         this.zoomLink = d.zoomLink;
+        this.playersId = d.playersId;
         // console.log("initialize startNextround: " + d.startNextRound);
         if (this.playerState.action !== "") {
           this.handlePlayerState();
@@ -1455,12 +1466,12 @@ export default {
     },
     getOtherPlayerIds: function () {
       var otherPlayers = [];
-      for (var id of Object.keys(this.players)) {
+      for (var id of this.playersId) {
         if (id != this.$store.state.playerId) {
           otherPlayers.push(id);
         }
       }
-      console.log("getotherplayerId");
+      // console.log("getotherplayerId");
       return otherPlayers;
     },
     getallPlayersAuction: function () {
@@ -1789,7 +1800,7 @@ footer a:visited {
 
 .buy_skill >>> .buy-cards {
   position: relative;
-  left: 9vw;
+  left: 8vw;
   top: -61vh;
   grid-template-rows: repeat(5, 10.5rem);
   grid-template-columns: 11rem;
@@ -2001,10 +2012,10 @@ footer a:visited {
 }
 .work_bottle >>> .buttons {
   position: relative;
-  top: 15vh;
+  top: 16vh;
   left: 1vw;
   display: grid;
-  grid-template-rows: repeat(5, 2rem);
+  grid-template-rows: repeat(5, 3.3rem);
   grid-gap: 0.5em;
 }
 .auction_bottle {
@@ -2480,7 +2491,7 @@ p {
 
 .quarter-tiles {
   position: relative;
-  top: -5.7em;
+  top: -8em;
   left: 0.1em;
   width: 5.5em;
   height: 2.5em;
@@ -2653,6 +2664,34 @@ p {
 .players-block {
   grid-row: 2;
 }
+.winner_style-enter-active {
+  animation: bounceIn 5s;
+}
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  20% {
+    transform: scale(2);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+  60% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
 /* .sendLinkPopUp {
   position: center;
@@ -2674,22 +2713,230 @@ p {
 
 .final_score {
   position: relative;
-  height: 60vh;
-  width: 60vh;
-  top: -90vh;
-  left: 35vw;
-  padding: 3vh;
+  height: 250vh;
+  width: 250vh;
+  top: -180vh;
+  left: -20rem;
+
   line-height: 5vh;
 
-  border: solid black;
-  border-radius: 1vh;
+  border-radius: 50%;
 
   text-align: center;
   font-weight: bold;
 
   z-index: 5;
-  box-shadow: 0 0 100vh 30vh #ffd51a;
-  background: white;
-  color: black;
+
+  background: rgb(5, 4, 0);
+  background: rgb(5, 4, 0);
+  background: radial-gradient(
+    circle,
+    rgb(24, 19, 2) 20%,
+    rgba(125, 121, 138, 0) 100%
+  );
+  color: rgb(247, 242, 242);
+}
+.winner_staffs {
+  position: relative;
+  top: 85vh;
+}
+.flicker {
+  animation: shine 2s forwards, blink 1s infinite;
+  font-size: 5rem;
+}
+
+@keyframes shine {
+  0% {
+    color: #6b1839;
+    text-shadow: none;
+  }
+  100% {
+    color: #ffe6ff;
+    text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff6565,
+      -0.2rem 0.1rem 1rem #ff6565, 0.2rem 0.1rem 1rem #ff656d,
+      0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483;
+  }
+}
+
+@keyframes flicker {
+  from {
+    opacity: 1;
+  }
+
+  4% {
+    opacity: 0.9;
+  }
+
+  6% {
+    opacity: 0.85;
+  }
+
+  8% {
+    opacity: 0.95;
+  }
+
+  10% {
+    opacity: 0.9;
+  }
+
+  11% {
+    opacity: 0.922;
+  }
+
+  12% {
+    opacity: 0.9;
+  }
+
+  14% {
+    opacity: 0.95;
+  }
+
+  16% {
+    opacity: 0.98;
+  }
+
+  17% {
+    opacity: 0.9;
+  }
+
+  19% {
+    opacity: 0.93;
+  }
+
+  20% {
+    opacity: 0.99;
+  }
+
+  24% {
+    opacity: 1;
+  }
+
+  26% {
+    opacity: 0.94;
+  }
+
+  28% {
+    opacity: 0.98;
+  }
+
+  37% {
+    opacity: 0.93;
+  }
+
+  38% {
+    opacity: 0.5;
+  }
+
+  39% {
+    opacity: 0.96;
+  }
+
+  42% {
+    opacity: 1;
+  }
+
+  44% {
+    opacity: 0.97;
+  }
+
+  46% {
+    opacity: 0.94;
+  }
+
+  56% {
+    opacity: 0.9;
+  }
+
+  58% {
+    opacity: 0.9;
+  }
+
+  60% {
+    opacity: 0.99;
+  }
+
+  68% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 0.9;
+  }
+
+  72% {
+    opacity: 0.95;
+  }
+
+  93% {
+    opacity: 0.93;
+  }
+
+  95% {
+    opacity: 0.95;
+  }
+
+  97% {
+    opacity: 0.93;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+.winner_img {
+  animation: spinne 1s infinite;
+}
+@keyframes spinne {
+  from {
+    transform: rotate(0deg);
+  }
+
+  9% {
+    transform: rotate(-10deg);
+  }
+
+  18% {
+    transform: rotate(-20deg);
+  }
+
+  27% {
+    transform: rotate(-30deg);
+  }
+
+  36% {
+    transform: rotate(-20deg);
+  }
+
+  45% {
+    transform: rotate(-10deg);
+  }
+
+  54% {
+    transform: rotate(0deg);
+  }
+
+  63% {
+    transform: rotate(10deg);
+  }
+
+  72% {
+    transform: rotate(20deg);
+  }
+
+  81% {
+    transform: rotate(30deg);
+  }
+
+  90% {
+    transform: rotate(20deg);
+  }
+
+  99% {
+    transform: rotate(10deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
 }
 </style>
