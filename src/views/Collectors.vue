@@ -25,18 +25,6 @@
           />
         </section>
 
-        <section class="do_auction">
-          <CollectorsBuyActions
-            v-if="players[playerId]"
-            :labels="labels"
-            :player="players[playerId]"
-            :itemsOnSale="auctionCards"
-            :marketValues="marketValues"
-            :placement="auctionPlacement"
-            @buyCard="buyCard('auction', $event)"
-          />
-        </section>
-
         <section
           v-if="!this.players[this.playerId].start_auction"
           id="players_auction"
@@ -44,7 +32,7 @@
         >
           <div class="auctionPopUp">
             <label class="auctionHeading">Auction</label><br />
-            <label>Card on auction:</label><br />
+            <label>Card on auction:</label>
             <section class="do_deckAuction">
               <CollectorsBuyActions
                 v-if="players[playerId]"
@@ -59,12 +47,12 @@
                 @buyCard="buyCard('win_auction', $event)"
               />
             </section>
-            <br />
-            <label>
-              The player with the highest bid can click and gets the card
-            </label>
+            <p style="padding: 0; margin: 0">
+              <label style="color: red; font-size: 0.8rem">
+                Click on the card if you have the highest bid!
+              </label>
+            </p>
 
-            <br />
             <label>Other players bids:</label><br />
             <div
               v-for="(val, key) in getOtherPlayersAuction()"
@@ -162,6 +150,17 @@
               :placement="auctionPlacement"
               @placeBottle="placeBottle('auction', $event)"
             />
+            <section class="do_auction">
+              <CollectorsBuyActions
+                v-if="players[playerId]"
+                :labels="labels"
+                :player="players[playerId]"
+                :itemsOnSale="auctionCards"
+                :marketValues="marketValues"
+                :placement="auctionPlacement"
+                @buyCard="buyCard('auction', $event)"
+              />
+            </section>
           </section>
         </div>
 
@@ -216,7 +215,7 @@
                 Room Link
               </button>
 
-              <button class="link" @click="displayRules()">Open Rules</button>
+              <button class="link" @click="displayRules()">Game Rules</button>
             </div>
             <!-- <div>
               <button class="link" @click="displayLinkBox('r')">
@@ -1627,7 +1626,7 @@ export default {
 
           // document.getElementById("players_auction").hidden = false;
         } else {
-          alert("You can not take the card or amount should be more than 1");
+          alert("You can't take the card , may you  need more money sorry !");
         }
       } else {
         if (action === "auction") {
@@ -1798,15 +1797,16 @@ footer a:visited {
   transition-timing-function: ease-out;
 }
 ::v-deep .do_auction .buy-cards {
-  width: 30rem;
+  width: 25rem;
 }
 
 .do_auction .buy-cards {
   position: relative;
   height: 10rem;
   width: 30rem;
-  left: -25.5vw;
-  top: -35vh;
+  /* left: -25.5vw;
+  top: -35vh; */
+  left: 4rem;
 
   display: grid;
   grid-template-columns: repeat(3, 10rem);
@@ -1902,7 +1902,7 @@ footer a:visited {
   position: absolute;
 
   height: 10rem;
-  width: 10rem;
+  width: 20rem;
 }
 
 ::v-deep .do_auction .buy-cards .cardslots.\33 {
@@ -1910,6 +1910,7 @@ footer a:visited {
   grid-column: 3/4;
   grid-row: 1/2;
   grid-gap: 40px;
+  z-index: 20;
 }
 ::v-deep .do_auction .buy-cards .cardslots.\30 {
   position: absolute;
@@ -1999,6 +2000,7 @@ footer a:visited {
   background-size: 100% 100%;
 }
 .work_bottle >>> .buttons {
+  position: relative;
   top: 15vh;
   left: 1vw;
   display: grid;
@@ -2008,6 +2010,7 @@ footer a:visited {
 .auction_bottle {
   grid-column: 3/4;
   grid-row: 2/3;
+  width: 25vw;
   background-color: rgb(238, 245, 245);
   background-image: url("/images/auction.jpg");
   background-size: 100% 100%;
@@ -2016,7 +2019,8 @@ footer a:visited {
 .auction_bottle >>> .buttons {
   top: 2vh;
   left: 1vw;
-  width: 20rem;
+  width: 10vw;
+
   display: grid;
   grid-template-rows: repeat(5, 2.5rem);
   grid-gap: 0.5em;
@@ -2073,7 +2077,7 @@ footer a:visited {
   position: absolute;
   display: grid;
   grid-gap: 5px;
-  grid-template-columns: 55% 45%;
+  grid-template-columns: 50% 50%;
   background: rgb(92, 160, 170);
   background: linear-gradient(
     0deg,
@@ -2415,7 +2419,7 @@ footer a:visited {
 }
 
 .auctionHeading {
-  font-size: 5vh;
+  font-size: 4.5vh;
 
   color: black;
 }
@@ -2427,6 +2431,7 @@ footer a:visited {
   vertical-align: middle;
   padding: 0.2rem;
   width: 3vw;
+  color: rgb(126, 42, 42);
 }
 
 .player_1_auction input {
@@ -2544,7 +2549,7 @@ p {
 .choose-secret-card {
   position: relative;
   left: 0.5vw;
-  top: -4.5vh;
+
   border: 0.4vh dashed white;
   height: 18vh;
   width: 6vw;
