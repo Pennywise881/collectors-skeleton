@@ -1199,7 +1199,7 @@ export default {
         this.startNextRound = d.startNextRound;
         this.zoomLink = d.zoomLink;
         this.playersId = d.playersId;
-        // console.log("initialize startNextround: " + d.startNextRound);
+        console.log("allplayer: " + d.playersId);
         if (this.playerState.action !== "") {
           this.handlePlayerState();
         }
@@ -1830,7 +1830,7 @@ footer a:visited {
 
 .market-cards {
   display: grid;
-  grid-template-columns: repeat(5, 5.5rem);
+  grid-template-columns: repeat(5, 6.5rem);
   grid-template-rows: 3em;
   margin-left: 10em;
 }
@@ -1873,7 +1873,7 @@ footer a:visited {
 .fastaval >>> .card {
   /* left: 17.5vw; */
   position: relative;
-  top: -2vh;
+  top: -3vh;
   transform: scale(0.22) translate(-50%, -50%);
   z-index: 5;
 }
@@ -1881,7 +1881,7 @@ footer a:visited {
 .figures >>> .card {
   /* left: 17.5vw; */
   position: relative;
-  top: -2vh;
+  top: -3vh;
   transform: scale(0.22) translate(-50%, -50%);
   z-index: 5;
 }
@@ -1889,14 +1889,14 @@ footer a:visited {
 .music >>> .card {
   /* left: 29.5vw; */
   position: relative;
-  top: -2vh;
+  top: -3vh;
   transform: scale(0.22) translate(-50%, -50%);
   z-index: 5;
 }
 
 .movie >>> .card {
   position: relative;
-  top: -2vh;
+  top: -3vh;
   transform: scale(0.22) translate(-50%, -50%);
   z-index: 5;
   /* left: 29.5vw; */
@@ -1904,7 +1904,7 @@ footer a:visited {
 
 .technology >>> .card {
   position: relative;
-  top: -2vh;
+  top: -3vh;
   transform: scale(0.22) translate(-50%, -50%);
   z-index: 5;
   /* left: 39.5vw; */
@@ -2742,6 +2742,7 @@ p {
 }
 .flicker {
   animation: shine 2s forwards, blink 1s infinite;
+
   font-size: 5rem;
 }
 
@@ -2884,7 +2885,7 @@ p {
   }
 }
 .winner_img {
-  animation: spinne 1s infinite;
+  animation: spinne 2s infinite;
 }
 @keyframes spinne {
   from {

@@ -360,7 +360,7 @@ Data.prototype.joinGame = function (roomId, playerId)
   {
     if (typeof room.players[playerId] !== "undefined")
     {
-      room.playersId.push(playerId);
+      
       console.log(
         "Player",
         playerId,
@@ -370,7 +370,10 @@ Data.prototype.joinGame = function (roomId, playerId)
       return true;
     } else if (Object.keys(room.players).length < room.playerCount)
     {
+      
       console.log("Player", playerId, "joined for the first time");
+      room.playersId.push(playerId);
+      console.log(room.playersId , " all players");
       room.players[playerId] = {
         playerName: playerId,
         hand: room.deck.splice(0, 3), // Two cards are kept secret and form the hands of each player
@@ -1038,7 +1041,7 @@ Data.prototype.placeBottle = function (roomId, playerId, action, p)
 
     //check if next round alert should go of
     console.log('***************p.cashforcard datahandler placebottle: ' + p.cashForCard);
-    if (p.cashForCard == 0 && p.buttonId < 16 && p.buttonId > 19)
+    if (p.cashForCard == 0 && p.buttonId !==16 &&p.buttonId !==17 && p.buttonId !==18 && p.buttonId !== 19)
     {
       console.log('inside if place bottle datahandler')
 

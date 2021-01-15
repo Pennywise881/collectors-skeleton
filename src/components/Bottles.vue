@@ -99,8 +99,6 @@ export default {
   },
   methods: {
     isAvailableCards: function (card, cost) {
-
-
       if (this.marketValues[card.item] <= this.player.money - cost) {
         this.$set(card, "available", true);
       } else {
@@ -108,7 +106,6 @@ export default {
       }
     },
     cannotAfford: function (cost) {
-      
       let minCost = 100;
       for (let key in this.marketValues) {
         if (cost + this.marketValues[key] < minCost)
@@ -120,16 +117,14 @@ export default {
       return this.marketValues[card.market];
     },
     placeBottle: function (p) {
-
-      if (!this.player.playersTurn){
+      if (!this.player.playersTurn) {
         alert("Wait for your turn to play");
       }
       if (
-
         this.player.money >= p.cost &&
-        this.player.bottles > 0 && this.player.playersTurn
+        this.player.bottles > 0 &&
+        this.player.playersTurn
       ) {
-
         if (this.itemsOnSale !== undefined) {
           this.highlightAvailableCards(p.cost);
         }
@@ -241,7 +236,7 @@ export default {
 }
 .bottlePlaced {
   width: 3.3vw;
-  height: 6.8vh;
+  height: 6vh;
   border-radius: 5px;
   background-size: 100% 100%;
 }

@@ -10,7 +10,8 @@ function sockets(io, socket, data)
     socket.join(d.roomId);
     if (data.joinGame(d.roomId, d.playerId))
     {
-      socket.emit("collectorsInitialize", {
+      console.log("socket all players"+ data.getPlayersId(d.roomId));
+      io.to(d.roomId).emit("collectorsInitialize", {
         labels: data.getUILabels(d.roomId),
         players: data.getPlayers(d.roomId),
         itemsOnSale: data.getItemsOnSale(d.roomId),
@@ -26,6 +27,7 @@ function sockets(io, socket, data)
         startNextRound: data.getStartNextRound(d.roomId),
         zoomLink: data.getZoomLink(d.roomId),
         playersId:data.getPlayersId(d.roomId)
+        
       });
     }
   });
